@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>FireRiskSim - Interactive Map</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+  <!-- Leaflet JS & Heatmap Plugin -->
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+
+  <!-- Plotly -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+
+<body>
+  <!-- 🔝 Top Navbar -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="index.html">
+        <img src="fire.jpg" alt="FireRiskSim Logo" class="logo">
+      </a>
+      <strong>FireRiskSim</strong></div>
+    <div class="nav-right">
+      <button id="darkModeToggle">🌙 Dark Mode</button>
+    </div>
+  </nav>
+
+  <div class="layout">
+    <!-- ✅ Sidebar for all controls -->
+    <div class="sidebar">
+      <h2>🛠 Controls</h2>
+
+      <button onclick="loadLayer('viirs_fire')">🔥 Fire Risk</button>
+      <button onclick="loadLayer('ndvi')">🌿 NDVI</button>
+      <button onclick="loadLayer('temp')">🌡 Temperature</button>
+      <button onclick="loadLayer('elevation')">🏔 Elevation</button>
+
+      <br><br>
+      <button onclick="makePrediction()">🎯 Predict Fire Risk</button>
+      <p id="predictionResult">Prediction will appear here...</p>
+
+      <label>💨 Wind Speed (km/h): <input id="windSpeed" type="number" value="10"></label>
+      <label>🧭 Wind Direction (°): <input id="windDir" type="number" value="90"></label>
+      <label>💧 Humidity (%): <input id="humidity" type="number" value="30"></label>
+      <button onclick="simulateFireSpread()">🔥 Simulate Fire Spread</button>
+      <button onclick="animateFireSpread()">🎞 Animate Fire Spread</button>
+
+      <div class="download">
+        <h3>⬇ Download Outputs</h3>
+        <button onclick="window.location.href='/download/fire-risk'">📥 Fire Risk CSV</button>
+        <button onclick="window.location.href='/download/fire-spread'">📥 Fire Spread GeoJSON</button>
+      </div>
+    </div>
+
+    <!-- ✅ Main Map Area -->
+    <div id="map"></div>
+  </div>
+
+  <!-- ✅ Chart Section -->
+  <div id="charts">
+    <h2>📊 Fire Intensity Relationships</h2>
+    <div id="chart1" style="width: 90%; height: 400px;"></div>
+    <div id="chart2" style="width: 90%; height: 400px;"></div>
+    <div id="chart3" style="width: 90%; height: 400px;"></div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-section">
+      <h4>About</h4>
+      <p>FireRiskSim is an AI-powered tool by xAI to predict and simulate wildfire risks using satellite data and machine learning.</p>
+    </div>
+    <div class="footer-section">
+      <h4>Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#predict">Predict</a></li>
+        <li><a href="#download">Download</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h4>Contact</h4>
+      <p>Email: support@xai.com</p>
+      <p><a href="https://x.com/xAI" target="_blank">Follow us on X</a></p>
+    </div>
+    <div class="footer-section">
+      <h4>&copy; 2025 xAI. All rights reserved.</h4>
+    </div>
+  </footer>
+
+  <script src="https://cdn.plotly.com/plotly-latest.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>s
+
+  <!-- 🔁 Custom JavaScript -->
+  <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>
