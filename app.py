@@ -239,5 +239,6 @@ def download_fire_spread():
         download_name="fire_spread.geojson"
     )
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=False, host='0.0.0.0', port=10000)
+
